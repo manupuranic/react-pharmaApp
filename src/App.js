@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Layout/Header";
+import Product from "./components/Products/Product";
+import Cart from "./components/Cart/Cart";
+import CartProvider from "./store/CartProvider";
+import ProductProvider from "./store/ProductProvider";
 
 function App() {
+  const [showCart, setShowCart] = useState(false);
+
+  const onToggleCart = () => {
+    setShowCart((prevState) => !prevState);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProductProvider>
+      <CartProvider>
+        {showCart && <Cart onClick={onToggleCart} />}
+        <Header onClick={onToggleCart} />
+        <Product />
+      </CartProvider>
+    </ProductProvider>
   );
 }
 

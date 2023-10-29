@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-div {
+  width: 80%;
+  margin: auto;
+  margin-top: 8rem;
+}
+
+.qty {
+  display: inline;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
