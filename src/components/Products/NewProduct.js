@@ -51,7 +51,6 @@ const NewProduct = () => {
     e.preventDefault();
     productCtx.addItem({
       ...formState,
-      id: Math.random(),
       price: +formState.price,
       qty: +formState.qty,
     });

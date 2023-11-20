@@ -8,11 +8,12 @@ const Cart = (props) => {
   const cartCtx = useContext(CartContext);
   const cartItems = cartCtx.items.map((item) => (
     <CartItem
-      key={item.id}
-      id={item.id}
+      key={item._id}
+      id={item._id}
       name={item.name}
       price={item.price}
       qty={item.qty}
+      productId={item.productId}
     />
   ));
   const totalAmount = cartCtx.items.reduce((currNum, item) => {

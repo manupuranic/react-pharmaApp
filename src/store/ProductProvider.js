@@ -1,30 +1,41 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ProductContext from "./product-context";
+
+import { addProduct, getProducts, updateProduct } from "../utils/Product";
 
 const ProductProvider = (props) => {
   const [items, setItems] = useState([]);
 
-  const onAddItems = (item) => {
-    setItems((prevItems) => [...prevItems, item]);
+  const fetchProducts = useCallback(async () => {
+    const products = await getProducts();
+    setItems(products);
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  const onAddItems = async (item) => {
+    await addProduct(item);
+    fetchProducts();
   };
 
-  const onRemoveItem = (id) => {
-    let updatedItems = [...items];
-    let existingItemIndex = updatedItems.findIndex((item) => item.id === id);
-    updatedItems[existingItemIndex].qty -= 1;
-  };
-
-  const onIncrementItem = (id) => {
-    let updatedItems = [...items];
-    let existingItemIndex = updatedItems.findIndex((item) => item.id === id);
-    updatedItems[existingItemIndex].qty += 1;
+  const onUpdateItem = async (id, increment) => {
+    const existingItemIndex = items.findIndex((item) => item._id === id);
+    const existingItem = items[existingItemIndex];
+    if (increment) {
+      existingItem.qty += 1;
+    } else {
+      existingItem.qty -= 1;
+    }
+    await updateProduct(existingItem);
+    fetchProducts();
   };
 
   const productCtx = {
     items: items,
     addItem: onAddItems,
-    removeItem: onRemoveItem,
-    incrementItem: onIncrementItem,
+    updateItem: onUpdateItem,
   };
 
   return (

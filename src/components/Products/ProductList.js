@@ -8,7 +8,7 @@ const ProductList = () => {
   let productList;
   if (productCtx.items.length) {
     productList = productCtx.items.map((item) => (
-      <ProductListItem key={item.id} item={item} />
+      <ProductListItem key={item._id} item={item} />
     ));
   } else {
     productList = <h3>No product found</h3>;

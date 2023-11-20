@@ -10,7 +10,7 @@ const CartItem = (props) => {
   const onAdd = () => {
     cartCtx.addItem({
       name: props.name,
-      id: props.id,
+      _id: props.productId,
       price: props.price,
     });
   };
